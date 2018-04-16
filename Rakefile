@@ -1,15 +1,6 @@
-require 'rake/packagetask'
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-Rake::PackageTask.new("rake", "1.2.3") do |p|
-  path = ENV["ARCHIVE_PATH"] || Dir.pwd
-  exclude = ENV["EXCLUDE"] || ""
+require_relative 'config/application'
 
-  p.name = path.split("/").last
-  p.need_tar_gz = true
-  p.package_files.include("#{path}/*")
-  p.package_files.exclude(exclude.split(","))
-  p.package_dir = "build"
-end
-
-desc "Archives a folder into a tar.gz file"
-task archive: [:package]
+Rails.application.load_tasks
